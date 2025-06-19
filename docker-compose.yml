@@ -1,0 +1,38 @@
+name: aiqfome-everson
+
+networks:
+  aiqfome-everson-network:
+    name: aiqfome-everson-network
+    driver: bridge
+
+services:
+  api:
+    image: aiqfome-everson
+    build: ./docker/api
+    container_name: '${COMPOSE_PROJECT_NAME}-api'
+    restart: always
+    ports: 
+      - "80:80"
+    networks:
+      - aiqfome-everson-network
+    volumes:
+      - ./app:/var/www/html
+      - ./.env:/var/www/.env
+    depends_on:
+      - db
+  db:
+    container_name: '${COMPOSE_PROJECT_NAME}-db'
+    image: mysql:8.4
+    restart: always
+    ports: 
+      - "3306:3306"
+    networks:
+      - aiqfome-everson-network
+    volumes:
+      - ./docker/db/persisted-data:/var/lib/mysql
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
