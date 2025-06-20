@@ -34,7 +34,7 @@ Deve ser passado os seguintes dados como `multipart form-data`:
 - username
 - password (usar senha descrita abaixo)
 
-**ATENÇÃO:** Já deixei um usuário criado no banco de dados, a senha dele é `123456`.
+**ATENÇÃO:** Já deixei um usuário criado `admin` no banco de dados, a senha dele é `123456`.
 
 #### Deslogar da API (POST):
 ```
@@ -56,6 +56,7 @@ http://localhost/customer/create
 Deve ser passado os seguintes dados como `multipart form-data`:
 - name
 - email
+  
 Enviar o token gerado na autenticação, enviando-o como Header Auth `Bearer Token`.
 
 #### Editar um cliente existente (PUT):
@@ -65,6 +66,7 @@ http://localhost/customer/update/{id}
 Deve ser passado os seguintes dados como JSON no corpo da requisição:
 - name
 - email
+
 Enviar o token gerado na autenticação, enviando-o como Header Auth `Bearer Token`.
 
 **ATENÇÃO**: Não utilizar `multipart form-data` no PUT, pois o PHP não consegue recuperar os dados assim.
